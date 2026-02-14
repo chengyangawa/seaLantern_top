@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sea Lantern</title>
+  <!-- 引入 fullPage.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullpage.js@3.1.2/dist/fullpage.min.css">
+  <!-- 引入 fullPage.js JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullpage.js@3.1.2/dist/fullpage.min.js"></script>
+  <style>
+    @font-face {
+      font-family: 'CustomFont';
+      src: url('HarmonyOS.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'CustomFont', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* ———————— Header（作为网页顶部内容） ———————— */
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      width: 100%;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #3498db;
+      font-size: 0.9rem;
+    }
+
+    /* ———————— FullPage Section ———————— */
+    .section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    #section1 { background: #f5f7fa; }
+    #section2 { background: #f5f7fa; }
+    #section3 { background: #f5f7fa; }
+    #section4 { 
+      background: #f5f7fa;
+      justify-content: space-between; /* 贡献者在上，footer 在下 */
+      padding: 2rem;
+    }
+
+    /* ———————— Hero Section ———————— */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .logo-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+      overflow: hidden;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tag {
+      padding: 0.3rem 0.8rem;
+      background-color: #e0e7ff;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      color: #3498db;
+    }
+
+    .description {
+      max-width: 600px;
+      margin: 2rem auto;
+      font-size: 0.95rem;
+      color: #555;
+      text-align: center;
+    }
+
+    /* ———————— Download Button ———————— */
+    .download-btn {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      background-color: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .download-btn:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+    }
+
+    .download-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ———————— Card ———————— */
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 3rem auto;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      text-align: left;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+
+    .card p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.8;
+    }
+    /* ———————— Card 内图片 ———————— */
+    .card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: block; /* 避免底部空白 */
+    }
+
+    /* ———————— Contributors ———————— */
+    .contributors {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+      padding: 0 1rem;
+    }
+
+    .contributor-card {
+      background-color: rgb(176, 175, 175);
+      border-radius: 10px;
+      padding: 1rem;
+      width: 180px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .contributor-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .contributor-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-bottom: 0.5rem;
+      background-color: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 1.2rem;
+    }
+
+    .contributor-name {
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .contributor-role {
+      font-size: 0.75rem;
+      color: #777;
+    }
+
+    /* ———————— Footer in Section 4 ———————— */
+    .page-footer {
+      text-align: center;
+      padding: 1rem;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .page-footer .footer-link {
+      color: #3498db;
+      text-decoration: underline;
+    }
+    .footer-dev-link {
+  display: inline-block;
+  color: #666; /* 灰色链接 */
+  text-decoration: none;
+  padding: 0.4rem 1rem;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.footer-dev-link:hover {
+  background-color: #e9ecef;
+  color: #495057;
+  transform: translateY(-1px);
+}
+
+
+    /* ———————— Responsive ———————— */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2rem 1rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .card {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+      }
+    }
+    /* ———————— 贡献者姓名链接 ———————— */
+.contributor-name-link {
+  display: block;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #333; /* 与 .contributor-name 一致 */
+  text-decoration: none;
+  margin: 0.3rem 0;
+  transition: color 0.2s ease;
+}
+
+.contributor-name-link:hover {
+  color: #3498db; /* 悬停变蓝色，与主题呼应 */
+}
+
+/* 保持原有 .contributor-name 样式（可删除） */
+.contributor-name {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+  </style>
+</head>
+<body>
+  <!-- Header 作为网页顶部内容 -->
+  <header>
+    <div class="header-container">
+      <div class="logo">Sea Lantern</div>
+      <div class="nav-links">
+        <a href="#">首页</a>
+        <a href="developer.html">开发者名单</a>
+        <a href="https://github.com/FPSZ/SeaLantern">github</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- FullPage 容器 -->
+  <div id="fullpage">
+    <!-- 第一页：介绍 -->
+    <div class="section" id="section1">
+      <div class="hero">
+        <div class="logo-icon">
+          <img src="pic/128x128.png" alt="Sea Lantern Logo">
+        </div>
+        <h1>Sea Lantern</h1>
+        <p class="subtitle">Minecraft 服务器管理工具</p>
+        <div class="tags">
+          <span class="tag">免费</span>
+          <span class="tag">开源</span>
+          <span class="tag">GPLv3</span>
+        </div>
+        <a href="https://github.com/FPSZ/SeaLantern/releases/tag/v0.4.1" class="download-btn">
+          立即下载
+        </a>
+        <p class="description">
+          一个由社区共同打造的 Minecraft 开服器
+        </p>
+      </div>
+    </div>
+
+    <!-- 第二页：为什么叫 Sea Lantern -->
+    <div class="section" id="section2">
+      <section class="card">
+        <img src="pic/haijingdeng.png">
+        <h2>为什么叫 Sea Lantern</h2>
+        <p>
+          海晶灯（Sea Lantern）是一种发光方块——它由无数碎片组合而成，却能发出柔和而持久的光。<br />
+          就像这个项目一样，每一位贡献者都是一片海晶碎片，<br />
+          当我们聚在一起，就能照亮整个社区。
+        </p>
+      </section>
+    </div>
+
+    <!-- 第三页：性能优势 -->
+    <div class="section" id="section3">
+      <section class="card">
+        <img src="pic/code.png">
+        <h2>优秀的性能</h2>
+        <p>没有 Electron，没有 Node 后端，没有 Webpack。启动快，体积小，内存省</p>
+      </section>
+    </div>
+
+    <!-- 第四页：贡献者 + footer -->
+    <div class="section" id="section4">
+      <section class="card">
+        <img src="pic/shequ.png">
+        <h2>活跃的社区</h2>
+        <p>社区积极维护</p>
+      </section>
+  <section class="contributors">
+    <div class="contributor-card">
+      <img src="https://avatars.githubusercontent.com/u/144772611?s=48&v=4" alt="FPS_Z" class="contributor-avatar">
+      <a href="https://github.com/FPSZ" class="contributor-name-link">FPS_Z</a>
+      <div class="contributor-role">项目创建者</div>
+    </div>
+    <div class="contributor-card">
+      <img src="https://storage.moegirl.org.cn/moegirl/commons/b/b7/Transparent_Akkarin.jpg!/fw/280?v=20130718000908" alt="Your Name" class="contributor-avatar">
+      <a href="https://qm.qq.com/q/XpWezSICau" class="contributor-name-link">你的名字</a>
+      <div class="contributor-role">参与贡献，加入我们！</div>
+    </div>
+  </section>
+  <footer class="page-footer">
+    <a href="developer.html" class="footer-dev-link">© 开发者名单    html by chengyang</a>
+  </footer>
+</div>
+
+  <!-- 初始化 fullPage.js -->
+  <script>
+    new fullpage('#fullpage', {
+      autoScrolling: true,
+      scrollBar: false,
+      navigation: true,
+      navigationPosition: 'right',
+      scrollingSpeed: 900
+    });
+  </script>
+</body>
+</html>
